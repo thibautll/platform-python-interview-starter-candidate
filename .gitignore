@@ -1,0 +1,7 @@
+.vim
+*.pyc
+*.DS_Store
+.idea/
+*local*
+*.egg-info/
+venv/
