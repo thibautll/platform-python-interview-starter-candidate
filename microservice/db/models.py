@@ -1,5 +1,6 @@
 from uuid import uuid4, UUID
-from sqlmodel import Field, SQLModel
+from typing import Dict, List, Optional
+from sqlmodel import Field, SQLModel, JSON, Relationship, Column
 
 
 class Workflow(SQLModel, table=True):
@@ -11,4 +12,15 @@ class Workflow(SQLModel, table=True):
     )
     name: str
 
-# TODO: add tables for `Component` and `Settings`
+    components: List["Component"] = Relationship(back_populates="workflow")
+
+
+class Component(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    order: int
+    component_type: str
+    component_settings: Dict = Field(default={}, sa_column=Column(JSON))
+    
+    workflow_id: UUID = Field(foreign_key="workflow.id")
+    workflow: Workflow = Relationship(back_populates="components")
+
