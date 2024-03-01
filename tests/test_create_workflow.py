@@ -40,10 +40,10 @@ class TestAPI(TestCase):
         workflow_wo_settings = {
             "name": "workflow_wo_settings",
             "components": [
-                {"type": "export"},
+                {"type": "import"},
                 {"type": "crop"},
                 {"type": "shadow"},
-                {"type": "import"}
+                {"type": "export"}
             ]
         }
 
@@ -77,8 +77,10 @@ class TestAPI(TestCase):
         workflow_settings = {
             "name": "workflow_settings",
             "components": [
-                {"type": "import", "settings": {"format": "PNG", "downscale": True}},
-                {"type": "shadow", "settings": {"intensity": 0.1}}
+                {"type": "import", "settings": {"format": "PNG", "downscale": True, "threshold": 25, "block_size": 123.45, "converted": False}},
+                {"type": "shadow", "settings": {"intensity": 0.1}},
+                {"type": "crop", "settings": {"sensitivity": 200}},
+                {"type": "export", "settings": {"gradient": 10.6, "min_distance": 36789, "comment": "PNG format exported"}}
             ]
         }
 
